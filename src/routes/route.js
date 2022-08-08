@@ -1,4 +1,5 @@
 const express = require('express');
+const lodash = require('lodash')
 const abc = require('../introduction/intro')
 const printName = require("../logger/logger")
 const Print =require("../util/helper")
@@ -13,7 +14,7 @@ router.get('/test-me', function (req, res) {
 });
 
 router.get('/assignment',function(req,res){
-    printName.print()
+    printName.printLetters()
     Print.date()
     Print.batch()
     formatter.trim()
