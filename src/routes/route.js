@@ -1,4 +1,5 @@
 const express = require('express');
+const lodash = require('lodash')
 const abc = require('../introduction/intro')
 const router = express.Router();
 
@@ -35,4 +36,47 @@ router.get('/student-details/:name', function(req, res){
     res.send('Dummy response')
 })
 
+const movies = ['Baazigar','Jo Jeeta Wohi Sinkander','Anand','Bhool Bholiya','Karan-Arjun']
+
+router.get('/movies',function(req,res){
+   
+
+    res.send(movies)
+})
+
+router.get('/movies/:indexNumber',function(req,res){
+    
+})
+let moviesArr= [ {
+    'id': 1,
+    'name': 'The Shining'
+   }, {
+    'id': 2,
+    'name': 'Incendies'
+   }, {
+    'id': 3,
+    'name': 'Rang de Basanti'
+   }, {
+    'id': 4,
+    'name': 'Finding Nemo'
+   }]
+
+router.get('/films',function(req,res){
+    
+       
+       res.send(moviesArr)
+})
+
+router.get('/films/:filmId',function(req,res){
+    moviesArr.forEach((ele,ind)=>{
+        if(ind===req.params.filmId){
+            res.send(ele)
+        }
+    })
+})
+
+
+
 module.exports = router;
+
+//given an array [10,20,5,2,100] find the nth largest Digit. n=3
