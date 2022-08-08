@@ -46,7 +46,11 @@ router.get('/movies',function(req,res){
 
 router.get('/movies/:indexNumber',function(req,res){
     
+  let name= lodash.indexOf(movies, req.params.indexNumber)
+   res.send(name)
+   
 })
+
 let moviesArr= [ {
     'id': 1,
     'name': 'The Shining'
@@ -68,11 +72,7 @@ router.get('/films',function(req,res){
 })
 
 router.get('/films/:filmId',function(req,res){
-    moviesArr.forEach((ele,ind)=>{
-        if(ind===req.params.filmId){
-            res.send(ele)
-        }
-    })
+   
 })
 
 
