@@ -1,21 +1,19 @@
-const printDate = function() {
-    let currentDate = new Date()
-    currentDate = currentDate.getDate()
-    console.log('The current date is: '+currentDate)
+const date= new Date()
+let day = date.getDate();
+let month = date.getMonth()+1 ;
+let year = date.getFullYear();
+
+let printDate=function(){
+    
+    console.log(day+"-"+month+"-"+year);
 }
 
-const printMonth = function() {
-    let currentDate = new Date()
-    let currentMonth = currentDate.getMonth()
-    currentMonth = currentMonth + 1
-
-    console.log('The current months is: ' + currentMonth)
+module.exports.date=printDate
+//=======================================================================
+let batchName="PLUTONIUM"
+let week="W3D5"
+let getBatchInfo=function(){
+    console.log(batchName+","+week+", the topic for today is nodeJS module system.");
 }
 
-const getBatchInfo = function() {
-    console.log('Plutonium, W4D1, the topic for today is Nodejs')
-}
-
-module.exports.getTodaysDate = printDate
-module.exports.getCurrentMonth = printMonth
-module.exports.printBatchDetails = getBatchInfo
+module.exports.batch=getBatchInfo

@@ -1,35 +1,67 @@
 const express = require('express');
-const _ = require('underscore')
-
+const lodash = require('lodash')
 const abc = require('../introduction/intro')
-const loggerModule = require('../logger/logger.js')
-const formatterModule = require('../validator/formatter') 
-const helperModule = require('../util/helper')
+const printName = require("../logger/logger")
+const Print =require("../util/helper")
+const formatter = require("../validator/formatter")
+
 const router = express.Router();
 
 router.get('/test-me', function (req, res) {
     console.log('My batch is', abc.name)
     abc.printName()
-    loggerModule.printInfo()
-    formatterModule.trimMyString()
-    formatterModule.getUpperCaseString()
-    formatterModule.changetoLowerCase()
-    helperModule.getTodaysDate()
-    helperModule.getCurrentMonth()
-    helperModule.printBatchDetails()
-    let weekdend = ['Saturday','Sunday','Monday']
-    let result = _.first(weekdend, 2)
-    console.log('Unserscore example resultr is ',result)
+
+  
+
+
     res.send('My second ever api!')
 });
+
+router.get('/assignment',function(req,res){
+    printName.print()
+    Print.date()
+    Print.batch()
+    formatter.trim()
+    formatter.upper()
+    formatter.lower()
+
+    let arr=['jan','feb','mar','april','may','june','july','aug','sept','oct','nov','dec']
+    let output = lodash.chunk(arr,4)
+    console.log(output)
+
+    let oddAr=[1,5,7,11,17,3,13,19,27,33]
+     const tail=lodash.tail(oddAr,1)
+     console.log(tail);
+
+     let u1=[1,2,5,4,3,4]
+     let u2=[1,5,4,1]
+     const union=lodash.union(u2,u1)
+     console.log(union)
+
+     let obj= [['horror','The Shining'],['drama','Titanic'],['thriller','Shutter Island'],['fantasy','Pans Labyrinth']]
+     const paris=lodash.fromPairs(obj)
+     console.log(paris);
+
+
+    res.send('Complete Assignment')
+})
 
 
 router.get('/test-you', function(req, res){
     res.send('This is the second routes implementation')
 })
 
-router.get('/give-me-students-data',function(req, res){
+router.get('/students', function (req, res){
+    let students = ['Satish', 'Kishan', 'Dev','Florian']
+    res.send(students)
+})
 
+router.get('/student-details/:name',function(req,res){
+    let requestParam=req.params
+    console.log("The is my request " +JSON.stringify(requestParam))
+    let names =requestParam.name
+    console.log("Name of the Cohort " ,names);
+    res.send(names)
 })
 module.exports = router;
 // adding this comment for no reason
