@@ -54,6 +54,9 @@ router.get('/movies/:indexNumber',function(req,res){
         return res.send("invalid")
     }
     return res.send(movieName)
+    // using package lodash
+    // const result=lodash.nth(movies,index)
+    // res.send(result)
 })
 
 
