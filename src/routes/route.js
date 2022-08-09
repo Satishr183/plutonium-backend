@@ -45,9 +45,11 @@ router.get('/movies',function(req,res){
 })
 
 router.get('/movies/:indexNumber',function(req,res){
-    
-  let name= lodash.indexOf(movies, req.params.indexNumber)
-   res.send(name)
+    let requestParams=parseInt(req.params)
+    let index=parseInt(requestParams.indexNumber)
+   movies.forEach(ele=>{
+    res.send(ele[index])
+   })
    
 })
 
@@ -72,7 +74,14 @@ router.get('/films',function(req,res){
 })
 
 router.get('/films/:filmId',function(req,res){
-   
+
+    let filmId=req.params.filmId
+    for(let i=0;i<moviesArr.length;i++){
+    if(moviesArr[i].id==filmId){
+        return res.send(moviesArr[i])
+    }
+  }
+  return res.send("Invalid Id")
 })
 
 
