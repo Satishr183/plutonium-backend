@@ -36,22 +36,26 @@ router.get('/student-details/:name', function(req, res){
     res.send('Dummy response')
 })
 
-const movies = ['Baazigar','Jo Jeeta Wohi Sinkander','Anand','Bhool Bholiya','Karan-Arjun']
+
 
 router.get('/movies',function(req,res){
    
-
+    const movies = ['Baazigar','Jo Jeeta Wohi Sinkander','Anand','Bhool Bholiya','Karan-Arjun']
     res.send(movies)
 })
 
 router.get('/movies/:indexNumber',function(req,res){
-    let requestParams=parseInt(req.params)
-    let index=parseInt(requestParams.indexNumber)
-   movies.forEach(ele=>{
-    res.send(ele[index])
-   })
-   
+    const movies = ['Baazigar','Jo Jeeta Wohi Sinkander','Anand','Bhool Bholiya','Karan-Arjun']
+    let index=parseInt(req.params.indexNumber)
+    let movieName=movies[index]
+    
+
+    if(index>=movies.length || index<0){
+        return res.send("invalid")
+    }
+    return res.send(movieName)
 })
+
 
 let moviesArr= [ {
     'id': 1,
@@ -75,9 +79,9 @@ router.get('/films',function(req,res){
 
 router.get('/films/:filmId',function(req,res){
 
-    let filmId=req.params.filmId
+    let filmsId=parseInt(req.params.filmId)
     for(let i=0;i<moviesArr.length;i++){
-    if(moviesArr[i].id==filmId){
+    if(moviesArr[i].id==filmsId){
         return res.send(moviesArr[i])
     }
   }
