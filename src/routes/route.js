@@ -1,6 +1,7 @@
 const express = require('express');
 const myHelper = require('../util/helper')
-const underscore = require('underscore')
+const underscore = require('underscore');
+const { functions } = require('underscore');
 
 const router = express.Router();
 
@@ -155,6 +156,68 @@ router.get("/films/:filmId", function(req, res){
 
     res.send(  { data: missingNumber  }  );
 });
+
+let players=[
+    {
+        "name": "manish",
+        "dob": "1/1/1995",
+        "gender": "male",
+        "city": "jalandhar",
+        "sports": [
+            "swimming"
+        ]
+    },
+    {
+        "name": "gopal",
+        "dob": "1/09/1995",
+        "gender": "male",
+        "city": "delhi",
+        "sports": [
+            "soccer"
+        ]
+    },
+    {
+        "name": "lokesh",
+        "dob": "1/1/1990",
+        "gender": "male",
+        "city": "mumbai",
+        "sports": [
+            "soccer"
+        ]
+    }
+]
+
+router.post('/api-post-assignment', function(req, res){
+
+    let playerDetails=req.body
+    let playerName = playerDetails.name
+   
+    for(let i=0;i<players.length;i++){
+        if(players[i].name == playerName){
+
+             return  res.send({data:playerName, status: 'Player Already present in Player DB'})
+        }
+     }
+    players.push(playerDetails)
+    res.send({data:players, status:true})
+})
+
+router.post('/players/playerName/bookings/bookingId', function(req, res){
+
+})
+
+// let arr= [{
+//     "name":"satish",
+//     "sport":["football"]
+// }]
+// router.post("/test-post-4", function(req, res) {
+    
+//     let ele= req.body.name
+//     let sport=req.body.sport
+//     arr.push(ele)
+//     arr.push(sport)
+//     res.send(  { msg: arr , status: true }  )
+// })
 
 
 module.exports = router;
