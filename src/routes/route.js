@@ -218,7 +218,12 @@ router.post('/players/playerName/bookings/bookingId', function(req, res){
 //     arr.push(sport)
 //     res.send(  { msg: arr , status: true }  )
 // })
-
+let array = [23,45,67,281343,32424,423,42323,4234,12,34]
+router.post('/post-query-1', function(req, res){
+    let input = req.query.input
+    let finalArr = array.filter(ele=> ele > input )
+    res.send({data:finalArr, status:true})
+})
 
 module.exports = router;
 // adding this comment for no reason
