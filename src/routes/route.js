@@ -168,6 +168,7 @@ let players=[
         ]
     },
     {
+        'bookingNumber': 1,
         "name": "gopal",
         "dob": "1/09/1995",
         "gender": "male",
@@ -186,6 +187,16 @@ let players=[
         ]
     }
 ]
+let booking={
+    'bookingNumber': 1,
+     'sportId': '',
+     'centerId': '',
+    'type': 'private',
+    'slot': 16286598000000,
+    'bookedOn': 31/08/2021,
+    'bookedFor': 01/09/2021
+   }
+   
 
 router.post('/api-post-assignment', function(req, res){
 
@@ -202,8 +213,19 @@ router.post('/api-post-assignment', function(req, res){
     res.send({data:players, status:true})
 })
 
-router.post('/players/playerName/bookings/bookingId', function(req, res){
+router.post('/players/playerName/bookings/:bookingId', function(req, res){
+    let bookingNum=req.params.bookingNumber
+    for(let i=0;i<players.length;i++){
+        if(booking.bookingNumber === bookingNum){
+            if(booking===players[i].bookingNumber){
+                let playerName=players[i].name
+                let bookingDetails=booking
 
+              return  res.send({data: 'Name: '+playerName+ 'Bokking: '+bookingDetails, status:true})
+            }
+        }
+    }
+    return 0
 })
 
 // let arr= [{
@@ -223,6 +245,65 @@ router.post('/post-query-1', function(req, res){
     let input = req.query.input
     let finalArr = array.filter(ele=> ele > input )
     res.send({data:finalArr, status:true})
+})
+
+let person=[
+    {
+        "name":"PK",
+        "age": 10 ,
+        "vottingStatus":false
+    },
+    {
+        "name":"Sk",
+        "age": 28 ,
+        "vottingStatus":false
+    },
+    {
+        "name":"GK",
+        "age": 70 ,
+        "vottingStatus":false
+    },
+    {
+        "name":"SS",
+        "age": 45 ,
+        "vottingStatus":false
+    },
+    {
+        "name":"SR",
+        "age": 40 ,
+        "vottingStatus":false
+    },
+    {
+        "name":"NC",
+        "age": 25 ,
+        "vottingStatus":false
+    },
+]
+
+router.post('/post-api-query', function(req, res){
+    // let newPerson = req.body
+    let age = req.query.age
+    let newDetails=[]
+    for(let i=0;i<person.length;i++){
+        if(person[i].age > age){
+           person[i].vottingStatus=true
+          let newData=person[i]   
+          newDetails.push(newData)
+          
+        }
+          
+    }return res.send({data:newDetails, status:true}) 
+
+    // let newData= person.find(p=>p.age > age)
+    //     // newData.vottingStatus=true
+    //     res.send({data: newData, status:true})
+    
+    // let newPerson = person.filter((ele) => ele.age > age)
+     
+    
+
+    // res.send({data: newPerson, status: true})
+
 })
 
 module.exports = router;
