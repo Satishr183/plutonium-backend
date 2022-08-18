@@ -46,18 +46,18 @@ let findAndUpdateBook = async function(req,res){
    
     let book = await bookModel.findOneAndUpdate(
         {name:"Two states"},
-        {$set:{price:40}},
+        {$set:{price:300}},
         {new:true}
-    ).select({author_id:1})
+    ).select({author_id:1,name:1,price:1,_id:0})
     console.log(book)
-    let author = await authorModel.find({author_id:{$eq:book['author_id']}})
+    let author = await authorModel.find({author_id:{$eq:book['author_id']}}).select({author_name:1,_id:0})
 
-    res.send({msg:author})
+    res.send({msg:author,book})
 }
 //
 let authorName = async function(req,res){
-    let books = await bookModel.find({price:{ $gte: 50, $lte: 100}}).select({author_id:1})
-    let author= await authorModel.find({ author_id: { $eq: books['author_id'] } })
+    let books = (await bookModel.find({price:{ $gte: 50, $lte: 100}})).map(x=>x.author_id)
+    let author=  await authorModel.find({author_id:books}).select({author_name:1})
      
     console.log(author);
 
