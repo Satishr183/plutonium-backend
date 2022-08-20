@@ -17,18 +17,8 @@ router.post("/createBook", bookController.createBook)
 
 router.get("/getBooksWithAuthorDetails", bookController.getBooksWithAuthorDetails)
 
-// if(book['author']){
-//     if(authorId===author){
-
-//         let bookCreated = await bookModel.create(book)
-//         return res.send({data: bookCreated})
-      
-//     }else{
-//       res.send({msg:'Invalid Author Id'})
-//     }
-//   }else{
-//       res.send({msg:'Author Id Required !'})
-//   }
+router.put('/api/books/isHardCover',bookController.isHardCover)
+router.put('/api/books/updatePrice',bookController.updatePrice)
  
 
 module.exports = router;

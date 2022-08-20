@@ -12,6 +12,10 @@ const bookSchema = new mongoose.Schema( {
     publisher: {
         type: ObjectId,
         ref: "Publisher",
+    },
+    isHardCove: {
+        type:Boolean,
+        default:false
     }
 
 

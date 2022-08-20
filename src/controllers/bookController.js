@@ -33,5 +33,36 @@ const getBooksWithAuthorDetails = async function (req, res) {
   res.send({ data: allBook });
 };
 
+// a) Add a new boolean attribute in the book schema called isHardCover with a default false value.
+//  For the books published by 'Penguin' and 'HarperCollins', update this key to true.
+
+const isHardCover = async function(req, res){
+  let publisherId = await publisherModel.find({name:{$in:["Pentagon","HarperCollins"]}})
+  let books = await bookModel.updateMany(
+    {publisher:publisherId},
+    {$set:{isHardCove:true}},
+    {new:true}
+  )
+  res.send({msg:books})
+}
+
+// b) For the books written by authors having a rating greater than 3.5,
+//  update the books price by 10 (For eg if old price for such a book is 50, new will be 60) 
+
+const updatePrice= async function(req, res){
+  let authorRating = await authorModel.find({ratings:{$gte:3.5}})
+  let updatedBookPrice = await bookModel.updateMany(
+    {author:authorRating},
+    {$inc:{price:10}},
+    {new:true}
+  )
+  console.log(authorRating)
+
+  res.send({msg:updatedBookPrice})
+}
+
+
+module.exports.updatePrice=updatePrice
+module.exports.isHardCover=isHardCover
 module.exports.createBook = createBook;
 module.exports.getBooksWithAuthorDetails = getBooksWithAuthorDetails;
