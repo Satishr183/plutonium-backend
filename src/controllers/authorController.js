@@ -6,10 +6,24 @@ const createAuthor= async function (req, res) {
     res.send({data: authorCreated})
 }
 
-const getAuthorsData= async function (req, res) {
-    let authors = await AuthorModel.find()
-    res.send({data: authors})
-}
+
 
 module.exports.createAuthor= createAuthor
-module.exports.getAuthorsData= getAuthorsData
+
+
+// else if(!publisherId){
+//     if(id1 !== publisherId){
+//         res.send({msg:'invalid publisher id'})
+//        }
+//        else if(id !== authorId){
+//         res.send({msg:'invalid author id'})
+//     }else{
+//         let bookCreated = await bookModel.create(book)
+//         res.send({data: bookCreated})
+        
+//     }
+    
+// }
+// else{
+//     res.send({msg:'publisher id required'})
+// }
