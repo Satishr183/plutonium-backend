@@ -14,14 +14,37 @@ mongoose.connect("mongodb+srv://functionup-cohort:G0Loxqc9wFEGyEeJ@cluster0.rzot
 .then( () => console.log("MongoDb is connected"))
 .catch ( err => console.log(err) )
 
-app.use (
-    function (req, res, next) {
-        console.log ("inside GLOBAL MW");
-        next();
-  }
-  );
+// app.use (
+//     function (req, res, next) {
+//         console.log ("inside GLOBAL MW");
+//         next();
+//   }
+//   );
+
+app.use(function(req,res,next){
+
+    //For time
+    let timeStamp =new Date()
+    let format=[timeStamp.getMonth()+1,
+        timeStamp.getDate(),
+        timeStamp.getFullYear()].join('/')+' '+
+       [timeStamp.getHours(),
+        timeStamp.getMinutes(),
+        timeStamp.getSeconds()].join(':');
+
+    //for route path
+    let url=req.path
+
+    //for ip address
+    let ipAddress=req.ip
+    
+    console.log(format," , "+url+" , ",ipAddress)
+    next()
+    })
 
 app.use('/', route);
+
+
 
 
 app.listen(process.env.PORT || 3000, function () {

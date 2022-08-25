@@ -9,6 +9,10 @@ router.get("/test-me", function (req, res) {
     res.send("My first ever api!")
 })
 
+router.get("/test-for-you", function (req, res) {
+    res.send("My first ever api 2!")
+})
+
 
 
 
@@ -48,7 +52,7 @@ router.post("/createBook", BookController.createBook  )
 
 
 
-router.get("/basicRoute", commonMW.mid1, commonMW.mid2, commonMW.mid3, commonMW.mid4, UserController.basicCode)
+router.get("/basicRoute",UserController.basicCode)
 
 
 
