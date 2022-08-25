@@ -31,10 +31,22 @@ const createUser= async function (req, res) {
     
     
     console.log("Request headers after modificatiom",req.headers)
+    console.log(data.age);
+
+    let obj={
+        "name":"Satish Rajbanshi",
+        "city":"Dhanbad",
+        "pincode":828202
+    }
+
+    console.log(obj.pincode)
+    console.log(obj['pincode'])
+    const {...a}=obj
+    console.log(a);
     
     //Set a header in response
     res.header('year','2022')
-    res.send({msg: "Hi"})
+    res.send({msg: "hi"})
 }
 
 const getUsersData= async function (req, res) {
