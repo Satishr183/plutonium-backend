@@ -1,4 +1,5 @@
-const UserModel= require("../models/userModel")
+const userModel = require("../models/userModel")
+
 
 
 
@@ -13,47 +14,49 @@ const basicCode= async function(req, res, next) {
     next()
     }
 
-const createUser= async function (req, res) {
+// const createUser= async function (req, res) {
     
-    let data= req.body
-    let tokenDataInHeaders= req.headers.token
-    //Get all headers from request
-    console.log("Request headers before modificatiom",req.headers)
-    //Get a header from request
-    console.log(req.headers.batch)
-    console.log(req.headers["content-type"])
-    console.log(tokenDataInHeaders)
-    //Set a header in request
-    req.headers['month']='June' //req.headers.month = "June"
+//     let data= req.body
+//     let tokenDataInHeaders= req.headers.today
+//     //Get all headers from request
+//     console.log("Request headers before modificatiom",req.headers)
+//     //Get a header from request
+//     console.log(req.headers.batch)
+//     console.log(req.headers["content-type"])
+//     console.log(tokenDataInHeaders)
+//     //Set a header in request
+//     req.headers['month']='June' //req.headers.month = "June"
 
-    //Set an attribute in request object
-    req.anything = "everything"
+//     req.headers['data']
+
+//     //Set an attribute in request object
+//     req.anything = "everything"
     
     
-    console.log("Request headers after modificatiom",req.headers)
-    console.log(data.age);
+//     console.log("Request headers after modificatiom",req.headers)
+//     console.log(data.age);
 
-    let obj={
-        "name":"Satish Rajbanshi",
-        "city":"Dhanbad",
-        "pincode":828202
-    }
+//     let obj={
+//         "name":"Satish Rajbanshi",
+//         "city":"Dhanbad",
+//         "pincode":828202
+//     }
 
-    console.log(obj.pincode)
-    console.log(obj['pincode'])
-    const {...a}=obj
-    console.log(a);
+//     console.log(obj.pincode)
+//     console.log(obj['pincode'])
+//     const {...a}=obj
+//     console.log(a);
     
-    //Set a header in response
-    res.header('year','2022')
-    res.send({msg: "hi"})
-}
+//     //Set a header in response
+//     res.header('year','2022')
+//     res.send({msg: "hi"})
+// }
 
-const getUsersData= async function (req, res) {
-    let allUsers= await UserModel.find()
-    res.send({msg: allUsers})
+const createUser= async function (req, res){
+    let user = req.body
+    let data = await userModel.create(user)
+
+    res.send({msg:data})
 }
 
 module.exports.createUser= createUser
-module.exports.getUsersData= getUsersData
-module.exports.basicCode= basicCode
