@@ -15,28 +15,24 @@ let isFreeAppUser= req.headers.isfreeappuser
     
 }
 
-const mid2= function(req, res, next){
-    let isFreeAppUser = req.headers.isfreeappuser
-    if(isFreeAppUser===true){
-        console.log("No amount is deducted");
-        let orderVal = orderModel.findByIdAndUpdate(
-            {$set:{isFreeAppUser:true}},
-            {new:true}
-        )
+const mid2= async function(req, res, next){
+    let isFreeAppUser=req.header.isfreeappuser
+    let data =req.body
+    let isproduct = await productModel.findOne({_id:data.productId})
+    let isuser =await userModel.findOne({_id:data.userId});
+   
+    if(isFreeAppUser){
         next()
-        
-    }else{
-        let productId = req.body.productId
-        let productPrice = productModel.findById(productId).select({price:1,_id:0})
-        console.log(productPrice)
-        let userBalance = userModel.findOneAndUpdate(
-            {balance:{$gt:productPrice}},
-            {$set:{balance:{$eq:productPrice}}}
-        )
-        next()
+
+    }else if (isproduct['price']<isuser['balance']){
+        const valUpdate=isuser['balance']-isproduct['price']
+        const balanceOfUser= await userModel.findOneAndUpdate({_id:data.userId},{$set:{balance:valUpdate}},
+        {new:true}    )
+    } else
+        return res.send("no enough balance")
     }
   
-}
+
 
 
 module.exports.mid2=mid2

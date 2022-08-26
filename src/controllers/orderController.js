@@ -12,7 +12,6 @@ const createOrder = async function (req, res) {
       if (id) {
         let id1 = await productModel.findById(productId).select({ _id: 1 });
         if (id1) {
-          let isFreeAppUser=req.headers.isfreeappuser
           let orderCreate = await orderModel.create(order);
           res.send({ data: orderCreate });
         } else {
@@ -28,5 +27,7 @@ const createOrder = async function (req, res) {
     res.send({ msg: "User id required" });
   }
 };
+
+
 
 module.exports.createOrder = createOrder;
