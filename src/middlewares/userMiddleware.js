@@ -16,19 +16,25 @@ let isFreeAppUser= req.headers.isfreeappuser
 }
 
 const mid2= async function(req, res, next){
-    let isFreeAppUser=req.header.isfreeappuser
+    let isFreeAppUser=req.headers.isfreeappuser
     let data =req.body
     let isproduct = await productModel.findOne({_id:data.productId})
     let isuser =await userModel.findOne({_id:data.userId});
    
-    if(isFreeAppUser){
+    if(isFreeAppUser=="true"){
+        const freeStatus = await userModel.findOneAndUpdate({_id:data.userId},{$set:{isFreeAppUser:true}},{new:true})
+        console.log(freeStatus)
         next()
 
     }else if (isproduct['price']<isuser['balance']){
         const valUpdate=isuser['balance']-isproduct['price']
         const balanceOfUser= await userModel.findOneAndUpdate({_id:data.userId},{$set:{balance:valUpdate}},
         {new:true}    )
-    } else
+        
+        console.log(balanceOfUser);
+        next()
+    }
+     else
         return res.send("no enough balance")
     }
   
