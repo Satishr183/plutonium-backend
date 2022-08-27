@@ -26,11 +26,13 @@ const mid2= async function(req, res, next){
         next()
 
     }else if (isproduct['price']<isuser['balance']){
-        const valUpdate=isuser['balance']-isproduct['price']
-        const balanceOfUser= await userModel.findOneAndUpdate({_id:data.userId},{$set:{balance:valUpdate}},
+        let valUpdate=isuser['balance']-isproduct['price']
+        let balanceOfUser= await userModel.findOneAndUpdate({_id:data.userId},{$set:{balance:valUpdate}},
         {new:true}    )
         
         console.log(balanceOfUser);
+        data.isFreeAppUser=false
+        data.amount=isproduct['price']
         next()
     }
      else

@@ -23,4 +23,4 @@ module.exports = mongoose.model('User', userSchema)
 
 
 // String, Number
-// Boolean, Object/json, array
+// Boolean, Object/json, arra

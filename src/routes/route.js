@@ -25,7 +25,7 @@ router.get("/test-me", function (req, res) {
 
 router.post("/createUser",middleware.mid, UserController.createUser)
 router.post('/createProduct',ProductContoller.createProduct)
-router.post("/createOrder",middleware.mid,middleware.mid2, orderContoller.createOrder)
+router.post("/createOrder",middleware.mid, middleware.mid2, orderContoller.createOrder)
 
 
 
