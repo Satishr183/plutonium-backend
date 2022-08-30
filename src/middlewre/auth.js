@@ -7,7 +7,7 @@ const mid = function(req, res, next){
     // if (!token) token = req.headers["x-auth-token"];
 
 //If no token is present in the request header return error. This means the user is not logged in.
-    if (!token) return res.status(404).send({ status: false, msg: "token must be present" });
+    if (!token) return res.status(401).send({ status: false, msg: "token must be present" });
  
    // If a token is present then decode the token with verify function
   // verify takes two inputs:
@@ -22,7 +22,7 @@ const mid = function(req, res, next){
 
   let decodedToken = jwt.verify(token, "functionup-plutonium-very-very-secret-key");
   if (!decodedToken)
-    return res.status(403).send({ status: false, msg: "token is invalid" });
+    return res.status(401).send({ status: false, msg: "token is invalid" });
   let userToBeModified = req.params.userId
   let loggedInUser = decodedToken.userId
   if(userToBeModified !== loggedInUser) 

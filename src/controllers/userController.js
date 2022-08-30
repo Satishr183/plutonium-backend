@@ -10,9 +10,11 @@ const createUser = async function (abcd, xyz) {
   //the second parameter is always the response
   try{
   let data = abcd.body;
+  if(data){
   let savedData = await userModel.create(data);
   xyz.status(201).send({ msg: savedData });
 }
+  }
 catch(err){
    xyz.status(500).send({error:err.message})
 }
@@ -21,9 +23,12 @@ catch(err){
 const userPosts = async function(req, res){
   try{
     let userId = req.params.userId
-    let user = await userModel.findOne(userId)
     let post = req.body.post
-    res.status(202).send({data:user})
+    let user = await userModel.findById(userId)
+    let updatedPost = user.posts
+    updatedPost.push(post)
+    let updatedUser = await userModel.findOneAndUpdate({_id:user._id},{posts:updatedPost},{new:true})
+    res.status(202).send({data:updatedUser})
   }catch(err){
     res.status(500).send({error:err})
   }
@@ -94,8 +99,10 @@ const updateUser = async function (req, res) {
   
 
   let userData = req.body;
+
   let updatedUser = await userModel.findOneAndUpdate({ _id: userId }, userData,{new:true});
   res.status(202).send({ status: true, data: updatedUser });
+
 }catch(err){
   res.status(500).send({error:err.message})
 }
